@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+        var sceneList = [];
+        var currentFrameNumber = 0;
+        function init(){
+            console.log("Hello World!")
+            var newRectangleInstance1 = new Rectangle(20, 20, "rgb(0, 255, 0)");
+            var newRectangleInstance2 = new Rectangle(15, 15, "rgb(0, 255, 0)");
+            var newRectangleInstance3 = new Rectangle(13, 13, "rgb(0, 255, 0)");
+            updateAndDraw();
+        }
+        function updateAndDraw(){
+            var crazyx = Math.floor(Math.random() * 150);
+            var crazyy = Math.floor(Math.random() * 150)
+            var crazycolor = ("rgb(" + (Math.floor(Math.random() * 250)) + "," + (Math.floor(Math.random() * 250)) + "," + (Math.floor(Math.random() * 250)) + ")");
+
+            var crazyRectangleInstance = new Rectangle(crazyx, crazyy, crazycolor);
+
+            
+            if((Math.floor(Math.random() * 150)) > 50){
+                sceneList.forEach(element => element.draw());
+            }else{
+                console.log("Whoa there, let's slow down!");
+            }
+            currentFrameNumber++;
+
+            console.log(currentFrameNumber);
+            window.requestAnimationFrame(updateAndDraw);
+            updateStats();
+    }
+    </script>
+</head>
+<body = onload= "init()">
+<canvas id="canvas1" width="300" height="200" style="border:1px solid gray;"> 
+</canvas>
+<p id="frameCount" ><br>Frame Count: 0 <br></p>
+<p id="rectangleCount">Rectangle Count: 0 </p>
+<script>
+    function Rectangle(x, y, color){
+        this.x = x;
+        this.y= y;
+        this.color = color;
+        sceneList.push(this);
+        this.draw = function (Rectangle){
+                var myCanvas = document.getElementById("canvas1");
+                var ctx = myCanvas.getContext("2d");
+                ctx.fillStyle = this.color;
+                ctx.fillRect(this.x, this.y, 150, 100);
+                ctx.strokeRect(this.x, this.y, 150, 100);
+            }
+    }
+    function updateStats(){
+        var p = document.getElementById("frameCount");
+        p.innerText = "Frame Count: " + currentFrameNumber;
+        var p = document.getElementById("rectangleCount");
+        p.innerText = "Rectangles Count: " + sceneList.length;
+    }
+    var myCanvasglob = document.getElementById("canvas1");
+</script>
+
+</body>
+</html>
