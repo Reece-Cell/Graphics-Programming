@@ -165,18 +165,11 @@ Vector3.prototype = {
   angle: function(v1, v2) {
     // todo - calculate the angle in degrees between vectors v1 and v2. Do NOT
     //        change any values on the vectors themselves
-    var newv1 = v1.clone();
-    var newv2 = v2.clone();
-    //Get dot product
-    var dot = (newv1.x * newv2.x) + (newv1.y * newv2.y) + (newv1.z * newv2.z);
-
-    var mag1 = Math.sqrt((newv1.x * newv1.x) + (newv1.y * newv1.y) + (newv1.z * newv1.z));
-    var mag2 = Math.sqrt((newv2.x * newv2.x) + (newv2.y * newv2.y) + (newv2.z * newv2.z));
-
-    var angle = Math.acos(dot/(mag1 * mag2));
-    console.log(angle);
-
-    return angle;
+    let dotProduct = v1.dot(v2);
+    let v1Length = v1.length();
+    let v2Length = v2.length();
+    let angleRad = Math.acos(dotProduct / (v1Length * v2Length));
+    return angleRad * 180 / Math.PI;
   },
 
   //----------------------------------------------------------------------------- 
@@ -185,8 +178,8 @@ Vector3.prototype = {
     //        but whose length is the projection of "vectorToProject" onto "otherVector"
     //        NOTE - "vectorToProject" and "otherVector" should NOT be altered (i.e. use clone)
     //        See "Vector Projection Slides" under "Extras" for more info.
-    var projv = vectorToProject.clone();
-
+    let projection = otherVector.clone().multiplyScalar(vectorToProject.dot(otherVector)/otherVector.lengthSqr());
+    return(projection);
   }
 };
 
